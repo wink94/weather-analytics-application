@@ -4,8 +4,6 @@ import os
 from concurrent.futures import ThreadPoolExecutor
 import logging
 
-precip_set = set()
-
 def read_json_file(filename):
     with open(filename, 'r') as file:
         return json.load(file)
@@ -69,8 +67,6 @@ def execute():
             connections = [create_db_connections() for _ in range(3)]
             json_data = executor.map(read_json_file, json_files)
             executor.map(process_json, json_data,connections)
-
-        print(precip_set)
 
     except Exception as exception:
         logging.error(exception, exc_info=True)
