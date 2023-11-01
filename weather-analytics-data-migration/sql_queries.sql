@@ -59,4 +59,9 @@ join weather_analytics_data_db.weather_summary ws
 on wd.summary = ws.summary and wd.daily_summary = ws.daily_summary and wd.precip_type = ws.precip_type
 SET  wd.weather_summary_id = ws.weather_summary_id
 
+SET FOREIGN_KEY_CHECKS = 0
 
+ALTER TABLE weather_data
+ADD FOREIGN KEY (weather_summary_id) REFERENCES weather_summary(weather_summary_id);
+
+SET FOREIGN_KEY_CHECKS = 1
