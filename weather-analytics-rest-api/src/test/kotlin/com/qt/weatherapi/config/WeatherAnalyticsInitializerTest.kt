@@ -25,25 +25,26 @@ class WeatherAnalyticsInitializerTest {
     @Mock
     lateinit var connection: Connection
 
-    @BeforeEach
-    fun setUp() {
-        Mockito.`when`(hikariDataSource.connection).thenReturn(connection)
-    }
-
     @Test
-    fun `test getDataSource with valid connection`() {
-        Mockito.`when`(connection.isValid(0)).thenReturn(true)
+    fun testGetDataSourceWithValidConnection() {
 
-        val dataSource = weatherAnalyticsInitializer.getDataSource("localhost", "weather_analytics_data_db", "root", "root", 3306, false)
+        val dataSource = weatherAnalyticsInitializer.getDataSource(
+            "localhost",
+            "weather_analytics_data_db",
+            "root",
+            "root",
+            3306,
+            false
+        )
         assertTrue(dataSource is HikariDataSource)
+
     }
 
     @Test
-    fun `test getDataSource with invalid connection`() {
-        Mockito.`when`(connection.isValid(0)).thenReturn(false)
+    fun testGetDataSourceWithInValidConnection() {
 
         assertThrows(WeatherDataException::class.java) {
-            weatherAnalyticsInitializer.getDataSource("localhost", "weather_analytics_data_db", "root", "root", 3306, false)
+            weatherAnalyticsInitializer.getDataSource("localhost11", "weather_analytics_data_db", "root", "root", 3306, false)
         }
     }
 
