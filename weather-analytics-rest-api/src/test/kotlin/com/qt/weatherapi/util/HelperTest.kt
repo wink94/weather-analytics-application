@@ -1,71 +1,78 @@
 package com.qt.weatherapi.util
 
-import com.qt.weatherapi.util.Helper.convertToMapList
+import com.qt.weatherapi.dto.QueryOutput
+import com.qt.weatherapi.dto.WebResponse
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class HelperTest {
 
     @Test
-    fun `test convertToMapList with valid data`() {
-        val input = listOf(
-            Pair("Partly Cloudy", 33L),
-            Pair("Mostly Cloudy", 29L),
-            Pair("Clear", 26L),
-            Pair("Rainy", 21L),
-            Pair("Overcast", 10L),
-            Pair("Snowy", 5L),
-            Pair("Windy", 3L)
+    fun `toWebResponse should calculate correct percentages for top 5 and others`() {
+        // Given
+        val queryOutputs = listOf(
+                QueryOutput("Sunny", 50),
+                QueryOutput("Rainy", 30),
+                QueryOutput("Cloudy", 20),
+                QueryOutput("Windy", 10),
+                QueryOutput("Snowy", 5),
+                QueryOutput("Foggy", 3),
+                QueryOutput("Stormy", 2)
+        )
+        val expectedWebResponse = WebResponse(
+                type = "SUMMARY",
+                data = listOf(
+                        mapOf("name" to "Sunny", "value" to 41),
+                        mapOf("name" to "Rainy", "value" to 25),
+                        mapOf("name" to "Cloudy", "value" to 16),
+                        mapOf("name" to "Windy", "value" to 8),
+                        mapOf("name" to "Snowy", "value" to 4),
+                        mapOf("name" to "Other (5)", "value" to 4) // Assuming the total count is 120
+                )
         )
 
-        val expected = listOf(
-            mapOf("name" to "Partly Cloudy", "value" to 25),
-            mapOf("name" to "Mostly Cloudy", "value" to 22),
-            mapOf("name" to "Clear", "value" to 20),
-            mapOf("name" to "Rainy", "value" to 16),
-            mapOf("name" to "Overcast", "value" to 7),
-            mapOf("name" to "Other (8)", "value" to 6)
-        )
+        // When
+        val actualWebResponse = queryOutputs.toWebResponse("SUMMARY")
 
-        val result = convertToMapList(input) // Assuming `convertToMapList` is a top-level function. Adjust if it's a member function.
-
-        assertEquals(expected, result)
+        // Then
+        assertEquals(expectedWebResponse, actualWebResponse)
     }
 
     @Test
-    fun `test convertToMapList with empty data`() {
-        val input = emptyList<Pair<String, Long>>()
+    fun `toWebResponse should handle empty list`() {
+        // Given
+        val queryOutputs = emptyList<QueryOutput>()
+        val expectedWebResponse = WebResponse(type = "SUMMARY", data = listOf(
+                mapOf("name" to "Other (0)", "value" to 0)
+        ))
 
-        val expected = listOf(
-            mapOf("name" to "Other (0)", "value" to 0)
-        )
+        // When
+        val actualWebResponse = queryOutputs.toWebResponse("SUMMARY")
 
-        val result = convertToMapList(input)
-
-        assertEquals(expected, result)
+        // Then
+        assertEquals(expectedWebResponse, actualWebResponse)
     }
 
     @Test
-    fun `test convertToMapList with zero totalCount`() {
-        val input = listOf(
-            Pair("Partly Cloudy", 0L),
-            Pair("Mostly Cloudy", 0L),
-            Pair("Clear", 0L),
-            Pair("Rainy", 0L),
-            Pair("Overcast", 0L)
+    fun `toWebResponse should handle list with less than 5 elements`() {
+        // Given
+        val queryOutputs = listOf(
+                QueryOutput("Sunny", 70),
+                QueryOutput("Rainy", 30)
+        )
+        val expectedWebResponse = WebResponse(
+                type = "SUMMARY",
+                data = listOf(
+                        mapOf("name" to "Sunny", "value" to 70),
+                        mapOf("name" to "Rainy", "value" to 30),
+                        mapOf("name" to "Other (0)", "value" to 0)
+                )
         )
 
-        val expected = listOf(
-            mapOf("name" to "Partly Cloudy", "value" to 0),
-            mapOf("name" to "Mostly Cloudy", "value" to 0),
-            mapOf("name" to "Clear", "value" to 0),
-            mapOf("name" to "Rainy", "value" to 0),
-            mapOf("name" to "Overcast", "value" to 0),
-            mapOf("name" to "Other (0)", "value" to 0)
-        )
+        // When
+        val actualWebResponse = queryOutputs.toWebResponse("SUMMARY")
 
-        val result = convertToMapList(input)
-
-        assertEquals(expected, result)
+        // Then
+        assertEquals(expectedWebResponse, actualWebResponse)
     }
 }

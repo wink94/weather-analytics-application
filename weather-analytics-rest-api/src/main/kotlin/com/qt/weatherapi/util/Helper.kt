@@ -1,30 +1,29 @@
 package com.qt.weatherapi.util
 
-object Helper {
+import com.qt.weatherapi.dto.QueryOutput
+import com.qt.weatherapi.dto.WebResponse
 
-    fun convertToMapList(results: List<Pair<String, Long>>): List<Map<String, Any>> {
+fun List<QueryOutput>.toWebResponse(kpi:String): WebResponse {
+    val totalCount = this.sumOf { it.count }
 
-        val totalCount = results.sumOf { it.second }
+    val top5 = this.take(5).map { pair ->
+        mapOf(
+                "name" to pair.evenType,
+                "value" to if (totalCount > 0) (pair.count * 100 / totalCount).toInt() else 0
+        )
+    }
 
-        val top5 = results.take(5).map { pair ->
-            mapOf(
-                "name" to pair.first,
-                "value" to if (totalCount > 0) (pair.second * 100 / totalCount).toInt() else 0
-            )
-        }
+    val otherCount = this.drop(5).sumOf { it.count }
+    val otherPercentage = if (totalCount > 0) (otherCount * 100 / totalCount).toInt() else 0
 
-        val otherCount = results.drop(5).sumOf { it.second }
-        val otherPercentage = if (totalCount > 0) (otherCount * 100 / totalCount).toInt() else 0
-
-        val otherEntry = mapOf(
+    val otherEntry = mapOf(
             "name" to "Other ($otherCount)",
             "value" to otherPercentage
-        )
+    )
 
-        val finalList = top5 + otherEntry
+    val finalList = top5 + otherEntry
 
-        println(finalList)
+    println(finalList)
 
-        return finalList
-    }
+    return WebResponse(type = kpi, data = finalList)
 }

@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManagerFactory
 import net.ttddyy.dsproxy.support.ProxyDataSourceBuilder
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -17,13 +18,26 @@ import java.util.concurrent.TimeUnit
 import javax.sql.DataSource
 
 @Configuration
+@ConfigurationProperties("application.properties")
 class WeatherAnalyticsInitializer {
 
     @Value("\${DEBUG:false}")
     private var debug: Boolean = false
 
+    @Value("\${spring.datasource.username}")
+    private lateinit var username: String
+
+    @Value("\${spring.datasource.password}")
+    private lateinit var password: String
+
+    @Value("\${host}")
+    private lateinit var host: String
+
+    @Value("\${database}")
+    private lateinit var database: String
+
+
     companion object {
-        private val entityManagerPackages = arrayOf("com.qt.weatherapi.dao", "com.qt.weatherapi.model")
         private val LOGGER = LoggerFactory.getLogger(WeatherAnalyticsInitializer::class.java)
         private const val MAXIMUM_POOL_SIZE = 20
         private const val MINIMUM_POOL_SIZE = 10
@@ -66,8 +80,8 @@ class WeatherAnalyticsInitializer {
     @Bean
     fun entityManagerFactory(): LocalContainerEntityManagerFactoryBean {
         val em = LocalContainerEntityManagerFactoryBean()
-        em.dataSource = getDataSource("localhost","weather_analytics_data_db","root","root",3306,false) // Define your data source here
-        em.setPackagesToScan("com.qt.weatherapi.model") // Base package to scan for entities
+        em.dataSource = getDataSource(host,database,username,password,3306,false)
+        em.setPackagesToScan("com.qt.weatherapi.model","com.qt.weatherapi.dao") // Base package to scan for entities
         em.jpaVendorAdapter = HibernateJpaVendorAdapter()
         return em
     }

@@ -3,11 +3,12 @@ package com.qt.weatherapi.util
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAdjusters
 
 object DateUtil {
 
-    fun getDateRangeForTimestamp(timestamp: String): Pair<LocalDateTime, LocalDateTime> {
+    fun getDateRangeForTimestamp(timestamp: String,startDate:String?,endDate:String?): Pair<LocalDateTime, LocalDateTime> {
         return when (timestamp) {
             "DAY" -> {
                 val startOfDay = LocalDateTime.of(LocalDate.now(), LocalTime.MIDNIGHT)
@@ -30,7 +31,11 @@ object DateUtil {
                 )
                 Pair(startOfYear, endOfYear)
             }
-
+            "CUSTOM" -> {
+                val startDateParsed = LocalDateTime.parse(startDate!!, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                val endDateParsed = LocalDateTime.parse(endDate!!, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+                Pair(startDateParsed, endDateParsed)
+            }
             else -> throw IllegalArgumentException("Invalid timestamp value: $timestamp")
         }
     }

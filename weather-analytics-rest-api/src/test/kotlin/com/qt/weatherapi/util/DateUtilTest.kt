@@ -17,7 +17,7 @@ class DateUtilTest {
             LocalDateTime.of(LocalDate.now(), LocalTime.MAX)
         )
 
-        val result = DateUtil.getDateRangeForTimestamp("DAY")
+        val result = DateUtil.getDateRangeForTimestamp("DAY",null,null)
 
         assertEquals(expected, result)
     }
@@ -29,7 +29,7 @@ class DateUtilTest {
             LocalDateTime.of(LocalDate.now().with(TemporalAdjusters.lastDayOfMonth()), LocalTime.MAX)
         )
 
-        val result = DateUtil.getDateRangeForTimestamp("MONTH")
+        val result = DateUtil.getDateRangeForTimestamp("MONTH",null,null)
 
         assertEquals(expected, result)
     }
@@ -44,7 +44,7 @@ class DateUtilTest {
             )
         )
 
-        val result = DateUtil.getDateRangeForTimestamp("YEAR")
+        val result = DateUtil.getDateRangeForTimestamp("YEAR",null,null)
 
         assertEquals(expected, result)
     }
@@ -52,7 +52,7 @@ class DateUtilTest {
     @Test
     fun `test getDateRangeForTimestamp with invalid timestamp`() {
         assertThrows(IllegalArgumentException::class.java) {
-            DateUtil.getDateRangeForTimestamp("INVALID")
+            DateUtil.getDateRangeForTimestamp("INVALID",null,null)
         }
     }
 

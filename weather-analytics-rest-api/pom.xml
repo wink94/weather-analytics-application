@@ -22,10 +22,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-security</artifactId>-->
-<!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
@@ -57,11 +53,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.security</groupId>-->
-<!--			<artifactId>spring-security-test</artifactId>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
 
 		<!-- https://mvnrepository.com/artifact/net.ttddyy/datasource-proxy -->
 		<dependency>
@@ -70,42 +61,26 @@
 			<version>1.9</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.github.gantsign.maven/ktlint-maven-plugin -->
+		<dependency>
+			<groupId>com.github.gantsign.maven</groupId>
+			<artifactId>ktlint-maven-plugin</artifactId>
+			<version>3.0.0</version>
+		</dependency>
 
-		<!--		<dependency>-->
-<!--			<groupId>org.jetbrains.exposed</groupId>-->
-<!--			<artifactId>exposed-core</artifactId>-->
-<!--			<version>0.44.0</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.jetbrains.exposed</groupId>-->
-<!--			<artifactId>exposed-dao</artifactId>-->
-<!--			<version>0.44.0</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.jetbrains.exposed</groupId>-->
-<!--			<artifactId>exposed-java-time</artifactId>-->
-<!--			<version>0.44.0</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.jetbrains.exposed</groupId>-->
-<!--			<artifactId>exposed-jdbc</artifactId>-->
-<!--			<version>0.44.0</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.jetbrains.exposed</groupId>-->
-<!--			<artifactId>exposed-json</artifactId>-->
-<!--			<version>0.44.0</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.jetbrains.exposed</groupId>-->
-<!--			<artifactId>exposed-kotlin-datetime</artifactId>-->
-<!--			<version>0.44.0</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.jetbrains.exposed</groupId>-->
-<!--			<artifactId>exposed-spring-boot-starter</artifactId>-->
-<!--			<version>0.44.0</version>-->
-<!--		</dependency>-->
+
+		<dependency>
+			<groupId>org.jetbrains.exposed</groupId>
+			<artifactId>exposed-java-time</artifactId>
+			<version>0.44.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jetbrains.exposed</groupId>
+			<artifactId>exposed-kotlin-datetime</artifactId>
+			<version>0.44.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

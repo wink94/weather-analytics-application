@@ -1,11 +1,11 @@
 package com.qt.weatherapi.service
 
-import java.time.LocalDateTime
+import com.qt.weatherapi.dto.QueryOutput
 
 interface WeatherDataService {
 
     fun getKPIDataCountByTimeStampDatePeriod(
-        kpi: String, timeDefinition: String, startDate: String,
-        endDate: String
-    ): Map<String, Any>
+        kpi: String, timeDefinition: String, startDate: String?,
+        endDate: String?
+    ): List<QueryOutput>
 }

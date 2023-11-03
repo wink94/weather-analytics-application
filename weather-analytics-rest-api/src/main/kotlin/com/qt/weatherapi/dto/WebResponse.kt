@@ -1,10 +1,3 @@
 package com.qt.weatherapi.dto
 
-data class WebResponse<T>(
-
-        val code: Int,
-
-        val status: String,
-
-        val data: T
-)
+data class WebResponse(val type:String, val data: List<Map<String, Any>>, val unit:String = "%")

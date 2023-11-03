@@ -1,5 +1,6 @@
 package com.qt.weatherapi.repository
 
+import com.qt.weatherapi.dto.QueryOutput
 import jakarta.persistence.EntityManager
 import jakarta.persistence.PersistenceContext
 import org.springframework.beans.factory.annotation.Qualifier
@@ -11,7 +12,7 @@ class WeatherDataRepositoryImpl:WeatherDataRepository {
     @PersistenceContext
     @Qualifier("WeatherAnalyticsInitializer")
     lateinit var entityManager: EntityManager
-    override fun getSummaryDataCountByDatePeriod(startDate: LocalDateTime, endDate: LocalDateTime): List<Pair<String, Long>> {
+    override fun getSummaryDataCountByDatePeriod(startDate: LocalDateTime, endDate: LocalDateTime): List<QueryOutput> {
         val query = """
             SELECT ws.summary, COUNT(wd.weatherDataId) as weather_count
             FROM WeatherData wd
@@ -25,13 +26,13 @@ class WeatherDataRepositoryImpl:WeatherDataRepository {
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
                 .resultList
-                .map { Pair(it[0] as String, it[1] as Long) }
+                .map { QueryOutput(it[0] as String,it[1] as Long) }
     }
 
     override fun getPrecipTypeDataCountByDatePeriod(
         startDate: LocalDateTime,
         endDate: LocalDateTime
-    ): List<Pair<String, Long>> {
+    ): List<QueryOutput> {
         val query = """
             SELECT ws.precipType, COUNT(wd.weatherDataId) as weather_count
             FROM WeatherData wd
@@ -42,10 +43,10 @@ class WeatherDataRepositoryImpl:WeatherDataRepository {
         """
 
         return entityManager.createQuery(query, Array<Any>::class.java)
-            .setParameter("startDate", startDate)
-            .setParameter("endDate", endDate)
-            .resultList
-            .map { Pair(it[0] as String, it[1] as Long) }
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .resultList
+                .map { QueryOutput(it[0] as String,it[1] as Long) }
     }
 
 }
