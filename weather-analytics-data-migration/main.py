@@ -47,13 +47,14 @@ def process_json(json_data,connection):
 
 
 
-dbUrl='localhost'
+dbUrl='roundhouse.proxy.rlwy.net'
 dbUser='root'
-dbPassword='root'
+dbPassword='Ab3DFBB354dFd51cB214fF2h-hgaD-4F'
 database='weather_analytics_data_db'
+port=35044
 
 def create_db_connections():
-    return pymysql.connect(host=dbUrl, user=dbUser, password=dbPassword, db=database, autocommit=True)
+    return pymysql.connect(host=dbUrl, user=dbUser, password=dbPassword, db=database,port=port, autocommit=True)
 
 
 def execute():

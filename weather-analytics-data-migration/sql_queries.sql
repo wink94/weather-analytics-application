@@ -1,3 +1,6 @@
+CREATE DATABASE `weather_analytics_data_db` IF NOT EXISTS;
+
+
 CREATE TABLE weather_analytics_data_db.weather_unnormalized (
 weather_id int NOT NULL AUTO_INCREMENT,
 observed_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
