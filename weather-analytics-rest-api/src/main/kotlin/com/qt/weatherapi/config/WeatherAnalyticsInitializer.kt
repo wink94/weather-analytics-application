@@ -41,8 +41,8 @@ class WeatherAnalyticsInitializer {
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(WeatherAnalyticsInitializer::class.java)
-        private const val MAXIMUM_POOL_SIZE = 20
-        private const val MINIMUM_POOL_SIZE = 10
+        private const val MAXIMUM_POOL_SIZE = 5
+        private const val MINIMUM_POOL_SIZE = 2
         private val MAX_LIFE_TIME = TimeUnit.MINUTES.toMillis(30)
         private val MINIMUM_IDLE_TIME = TimeUnit.MINUTES.toMillis(5)
     }
