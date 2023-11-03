@@ -36,6 +36,8 @@ class WeatherAnalyticsInitializer {
     @Value("\${database}")
     private lateinit var database: String
 
+    @Value("\${PORT}")
+    private lateinit var port: String
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(WeatherAnalyticsInitializer::class.java)
@@ -80,7 +82,7 @@ class WeatherAnalyticsInitializer {
     @Bean
     fun entityManagerFactory(): LocalContainerEntityManagerFactoryBean {
         val em = LocalContainerEntityManagerFactoryBean()
-        em.dataSource = getDataSource(host,database,username,password,3306,false)
+        em.dataSource = getDataSource(host,database,username,password,port.toInt(),false)
         em.setPackagesToScan("com.qt.weatherapi.model","com.qt.weatherapi.dao") // Base package to scan for entities
         em.jpaVendorAdapter = HibernateJpaVendorAdapter()
         return em
