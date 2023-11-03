@@ -1,1 +1,1 @@
-export const URL:string = 'http://localhost:8080/v1/weather/kpi'
+export const WEATHER_API_BASE_URL:string = '/v1/weather/kpi'

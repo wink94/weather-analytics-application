@@ -1,8 +1,9 @@
 // store.ts
 import create from 'zustand';
 import axios from 'axios';
-import { URL } from './constants';
+import { WEATHER_API_BASE_URL } from './constants';
 import { WeatherData } from '../components/WeatherDataTable';
+import { BASE_URL } from './config';
 
 interface WeatherState {
   weatherDataList: Array<WeatherData>; 
@@ -18,7 +19,7 @@ export const useWeatherStore = create<WeatherState>((set) => ({
   fetchWeatherData: async (eventType, timestamp, startDate, endDate) => {
     set({ loading: true });
     try {
-      const response = await axios.get(URL, {
+      const response = await axios.get(`${BASE_URL}${WEATHER_API_BASE_URL}`, {
         params: { eventType, timestamp, startDate, endDate },
       });
       set({ weatherDataList: response.data.data, loading: false });
