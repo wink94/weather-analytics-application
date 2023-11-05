@@ -6,6 +6,8 @@ info:
 servers:
   - url: http://localhost:8080/v1/weather
     description: Local server
+  - url: https://starfish-app-5d2xl.ondigitalocean.app/v1/weather
+    description: Hosted server
 paths:
   /kpi:
     get:

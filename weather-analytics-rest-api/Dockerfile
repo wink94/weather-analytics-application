@@ -1,27 +1,16 @@
 # Start with a base image containing Java runtime
-FROM eclipse-temurin:17-jdk as builder
-
-# The application's jar file
-ARG JAR_FILE=target/*.jar
-
-# Add the application's jar to the container
-COPY ${JAR_FILE} app.jar
-
-# Unpack the jar file
-RUN java -Djarmode=layertools -jar app.jar extract
-
-# Start with a new base image for the final build
 FROM eclipse-temurin:17-jdk
 
-# Copy the unpacked application files
-COPY --from=builder dependencies/ ./
-COPY --from=builder snapshot-dependencies/ ./
-COPY --from=builder spring-boot-loader/ ./
-COPY --from=builder application/ ./
+# Add Maintainer Info
+MAINTAINER wink
 
-# Expose the port the app runs on
-EXPOSE 8080
 
-# Run the application
-ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
+COPY target/weatherapi-0.0.1-SNAPSHOT.jar /app/
+
+
+EXPOSE 80 25060
+
+# Run the jar file
+
+ENTRYPOINT ["java","-jar", "app/weatherapi-0.0.1-SNAPSHOT.jar"]
 

@@ -38,23 +38,8 @@ class WeatherAnalyticsInitializerTest {
     @Value("\${database}")
     private lateinit var database: String
 
-    @Value("\${PORT}")
+    @Value("\${database_port}")
     private lateinit var port: String
-
-//    @Test
-//    fun testGetDataSourceWithValidConnection() {
-//
-//        val dataSource = weatherAnalyticsInitializer.getDataSource(
-//                host,
-//            database,
-//            username,
-//            password,
-//                port.toInt(),
-//            false
-//        )
-//        assertTrue(dataSource is HikariDataSource)
-//
-//    }
 
     @Test
     fun testGetDataSourceWithInValidConnection() {

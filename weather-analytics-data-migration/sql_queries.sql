@@ -1,4 +1,5 @@
-CREATE DATABASE `weather_analytics_data_db` IF NOT EXISTS;
+CREATE DATABASE IF NOT EXISTS `weather_analytics_data_db` ;
+
 
 
 CREATE TABLE weather_analytics_data_db.weather_unnormalized (

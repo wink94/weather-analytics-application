@@ -36,7 +36,7 @@ class WeatherAnalyticsInitializer {
     @Value("\${database}")
     private lateinit var database: String
 
-    @Value("\${PORT}")
+    @Value("\${database_port}")
     private lateinit var port: String
 
     companion object {
@@ -49,7 +49,7 @@ class WeatherAnalyticsInitializer {
 
     fun getDataSource(host: String, database: String, user: String, password: String, databasePort: Int, readOnly: Boolean): DataSource {
         return try {
-            val url = "jdbc:mysql://$host:$databasePort/$database"
+            val url = "jdbc:mysql://$host:$databasePort/$database?useSSL=false"
 
 
 
