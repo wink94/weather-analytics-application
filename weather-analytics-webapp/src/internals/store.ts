@@ -3,7 +3,7 @@ import create from 'zustand';
 import axios from 'axios';
 import { WEATHER_API_BASE_URL } from './constants';
 import { WeatherData } from '../components/WeatherDataTable';
-import { BASE_URL } from './config';
+import { BASE_URL } from './constants';
 
 interface WeatherState {
   weatherDataList: Array<WeatherData>; 

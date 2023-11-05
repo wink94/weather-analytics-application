@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@CrossOrigin(origins = ["http://localhost:3000"])
+@CrossOrigin(origins = ["http://localhost:3000","http://localhost:3000"])
 class WeatherAnalyticsController(private val weatherDataService: WeatherDataService) {
     @GetMapping(
         value = ["v1/weather/kpi"],
