@@ -49,7 +49,10 @@ class WeatherAnalyticsInitializer {
 
     fun getDataSource(host: String, database: String, user: String, password: String, databasePort: Int, readOnly: Boolean): DataSource {
         return try {
-            val url = "jdbc:mysql://$host:$databasePort/$database?useSSL=false"
+            val url = "jdbc:mysql://$host:$databasePort/$database"
+
+
+
             val hikariDataSource = DataSourceBuilder
                     .create()
                     .type(HikariDataSource::class.java)
