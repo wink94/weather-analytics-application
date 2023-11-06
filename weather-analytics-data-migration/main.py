@@ -47,13 +47,14 @@ def process_json(json_data,connection):
 
 
 
-dbUrl='localhost'
-dbUser='root'
-dbPassword='root'
+dbUrl='db-mysql-ams3-65883-do-user-15044045-0.c.db.ondigitalocean.com'
+dbUser='doadmin'
+dbPassword='AVNS_AgmKU8NtTR5ddfP-A2d'
 database='weather_analytics_data_db'
+port=25060
 
 def create_db_connections():
-    return pymysql.connect(host=dbUrl, user=dbUser, password=dbPassword, db=database, autocommit=True)
+    return pymysql.connect(host=dbUrl, user=dbUser, password=dbPassword, db=database,port=port, autocommit=True)
 
 
 def execute():

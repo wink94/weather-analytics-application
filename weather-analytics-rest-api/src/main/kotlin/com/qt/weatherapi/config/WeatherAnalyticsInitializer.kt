@@ -36,11 +36,13 @@ class WeatherAnalyticsInitializer {
     @Value("\${database}")
     private lateinit var database: String
 
+    @Value("\${database_port}")
+    private lateinit var port: String
 
     companion object {
         private val LOGGER = LoggerFactory.getLogger(WeatherAnalyticsInitializer::class.java)
-        private const val MAXIMUM_POOL_SIZE = 20
-        private const val MINIMUM_POOL_SIZE = 10
+        private const val MAXIMUM_POOL_SIZE = 5
+        private const val MINIMUM_POOL_SIZE = 2
         private val MAX_LIFE_TIME = TimeUnit.MINUTES.toMillis(30)
         private val MINIMUM_IDLE_TIME = TimeUnit.MINUTES.toMillis(5)
     }
@@ -48,6 +50,9 @@ class WeatherAnalyticsInitializer {
     fun getDataSource(host: String, database: String, user: String, password: String, databasePort: Int, readOnly: Boolean): DataSource {
         return try {
             val url = "jdbc:mysql://$host:$databasePort/$database?useSSL=false"
+
+
+
             val hikariDataSource = DataSourceBuilder
                     .create()
                     .type(HikariDataSource::class.java)
@@ -80,7 +85,7 @@ class WeatherAnalyticsInitializer {
     @Bean
     fun entityManagerFactory(): LocalContainerEntityManagerFactoryBean {
         val em = LocalContainerEntityManagerFactoryBean()
-        em.dataSource = getDataSource(host,database,username,password,3306,false)
+        em.dataSource = getDataSource(host,database,username,password,port.toInt(),false)
         em.setPackagesToScan("com.qt.weatherapi.model","com.qt.weatherapi.dao") // Base package to scan for entities
         em.jpaVendorAdapter = HibernateJpaVendorAdapter()
         return em

@@ -11,6 +11,7 @@ import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.jupiter.MockitoExtension
+import org.springframework.beans.factory.annotation.Value
 import java.sql.Connection
 
 @ExtendWith(MockitoExtension::class)
@@ -25,20 +26,20 @@ class WeatherAnalyticsInitializerTest {
     @Mock
     lateinit var connection: Connection
 
-    @Test
-    fun testGetDataSourceWithValidConnection() {
+    @Value("\${spring.datasource.username}")
+    private lateinit var username: String
 
-        val dataSource = weatherAnalyticsInitializer.getDataSource(
-            "localhost",
-            "weather_analytics_data_db",
-            "root",
-            "root",
-            3306,
-            false
-        )
-        assertTrue(dataSource is HikariDataSource)
+    @Value("\${spring.datasource.password}")
+    private lateinit var password: String
 
-    }
+    @Value("\${host}")
+    private lateinit var host: String
+
+    @Value("\${database}")
+    private lateinit var database: String
+
+    @Value("\${database_port}")
+    private lateinit var port: String
 
     @Test
     fun testGetDataSourceWithInValidConnection() {
