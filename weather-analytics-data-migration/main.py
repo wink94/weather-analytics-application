@@ -47,9 +47,9 @@ def process_json(json_data,connection):
 
 
 
-dbUrl='db-mysql-ams3-65883-do-user-15044045-0.c.db.ondigitalocean.com'
-dbUser='doadmin'
-dbPassword='AVNS_AgmKU8NtTR5ddfP-A2d'
+dbUrl=''
+dbUser=''
+dbPassword=''
 database='weather_analytics_data_db'
 port=25060
 
