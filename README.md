@@ -1,3 +1,3 @@
 # weather-analytics-application
 
-## Read Wiki for more info [](https://github.com/wink94/weather-analytics-application/wiki)
+## Read Wiki for more info [Wiki](https://github.com/wink94/weather-analytics-application/wiki)
